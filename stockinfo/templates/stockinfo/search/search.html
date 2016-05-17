@@ -1,0 +1,65 @@
+{% extends 'default.html' %}
+
+{% block scripts %}
+<script type="text/javascript"">
+function validate_required(field)
+{
+  with (field)
+    {
+      if (value==null||value=="")
+        {
+          return false
+        }
+      else {
+          return true
+      }
+    }
+}
+
+function submit_form(thisform)
+{
+  with (thisform)
+    {
+      if(validate_required(stock_number)==false)
+        {
+          stock_number.focus();
+          return false
+	}
+    }
+}
+</script>
+{% endblock scripts%}
+
+{% block main %}
+<div class="jumbotron text-center"> 
+      <h3>Search Result:</h3> 
+      <table width='100px' height='80px' border='1' align='center' > 
+	<tr><th>Symbol:</th><th>Open Price:</th><th>Change:</th><th>Lastest Price:</th></tr> 
+        <tr>
+          {% for info in stock_info %}    
+          <td >  {{ info }}   </td>
+          {% endfor %}
+        </tr>  
+      </table>
+      <p><font size='3'><i>@change is based on last hours.</i></font></p> 
+      <br><br>
+      <h3> Add {{ sym_stock }} stock?</h3>
+      <form action='/add/' method='GET' id='add_form' class='form-search'>
+	 <div class='input-append'>
+          <div>
+           <table width='250px' border='1' cellpadding='0' cellspacing='0'align='center' valign='center' > 
+             <tr><th>Symbol:</th><th>Price:</th><th>Number:</th></tr> 
+             <tr>
+               <td><input type='text' value= '{{ sym_stock }}' name='sym_stock' readonly='readonly' style="background-color:lightblue; border:0px"></td>
+               <td><input type='text' value= '{{ price_stock }}' name='price_stock' readonly='readonly' style="background-color:lightblue; border:0px"></td>
+	       <td> <input type='text'  name='stock_number' required='required' style='border:0px' placeholder='put an integer here'/></td>
+             </tr>
+           </table>
+          </div>
+	  <div>
+	   <button type='submit' class='btn btn-success' id='mybun' onclick="submit_form();">Add</button><br><br><br>
+          </div>
+         </div>
+        </form>
+</div>
+{% endblock %}

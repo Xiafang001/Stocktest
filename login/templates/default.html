@@ -1,0 +1,49 @@
+<html>
+<head lang="en">
+  <meta charset="UTF-8" />
+  <title>TecStock</title>
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'stylesheets/bootstrap/bootstrap.min.css' %}" type="text/css"/>
+  <link rel="stylesheet" href="{% static 'stylesheets/styles.css' %}" />
+  {% block scripts %}
+  {% endblock scripts%}
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+          <p class="navbar-brand"><strong>TecStock</strong></p>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+	{% if user.is_anonymous %}     
+          <li><a href="/about"><small>ABOUT</small></a></li>
+          <li><a href="/author"><small>AUTHOR</small></a></li>	
+        {% else %}
+	  <li><a href="/stockinfo"><small>STOCKINFO</small></a></li>
+          <li><a href="/about"><small>ABOUT</small></a></li>
+          <li><a href="/author"><small>AUTHOR</small></a></li>
+        {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_anonymous %}
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          {% else %}
+	    <li><a href='home.html'><span class="glyphicon glyphicon-user"></span> {{ user_name.first_name }} </a></li> 
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container" background-color='lightblue'>
+    {% block main %}
+    {% endblock main %}
+  </div>
+  <footer class="footer">
+  <div class="container text-center">
+    <p class="text-muted">@ <a href="/author">Xia Fang</a></p>
+  </div>
+ </footer>
+</body>
+</html>

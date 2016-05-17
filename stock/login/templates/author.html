@@ -1,0 +1,22 @@
+{% extends 'default.html' %}
+
+{% block main %}
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-sm-3" >
+      {% load staticfiles %}		  
+      <img src="{% static 'images/myface.jpeg' %}" class="img-thumbnail" alt="Xia Fang" width="200" height="300">
+    </div>
+    <div class="col-sm-9">
+      <h3>Xia Fang</h3>
+      <br>
+      <br>
+      <p> I am a graduated student from George Washington University. My major is Computer Science. Currently, I am training in Tekforce company in CA.</p>
+      <p>If you have any questions, feel free to contact me.</p>
+      <p>Email: xiafang9@gmail.com<br>Phone: 571-276-7412</p>
+      <p>Thank you!</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

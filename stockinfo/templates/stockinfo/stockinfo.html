@@ -1,0 +1,131 @@
+{% extends 'default.html' %}
+
+{% block scripts %}
+<script type="text/javascript"">
+function validate_required(field)
+{
+  with (field)
+    {
+      if (value==null||value=="")
+        {
+          return false
+        }
+      else {
+          return true
+      }
+    }
+}
+
+function submit_form(thisform)
+{
+  with (thisform)
+    {
+      if(validate_required(stock_name)==false)
+        {
+          stock_name.focus();
+          return false
+        }
+    }
+}
+</script>
+{% endblock scripts%}
+
+{% block main %}
+<div class="jumbotron"> 
+  <div class="row">
+     <div class="col-sm-1"></div>
+     <div class="col-sm-4" style="background-color:lightblue;">
+      <div class="div-position">
+      {% if stock_list %}
+      <h3>Stocks</h3>
+      <table width='250px' border='1' cellpadding='0' cellspacing='0'> 
+        <tr><th>Stock Symbol</th><th>Current Price</th><th>Sum of Shares</th></tr> 
+        {% for stock in stock_list %}  
+        <tr>
+          <td> {{ stock.stock }} </td> 
+          <td> {{ stock.current_price }} </td>
+          <td> {{ stock.numbers }} </td>
+        </tr>  
+        {% endfor %}  
+       </table>
+       <h3>Profit and Loss</h3>
+       <table width='250px' border='1' cellpadding='0' cellspacing='0'> 
+        <tr><th>Spent</th><th>Values</th><th>Earned</th><tr>
+        <tr><td>{{ spent }}</td>
+            <td>{{ total }}</td>
+            <td>{{ earned }}</td><tr>
+       </table>
+       <p><font size='2'><i>@Currency in USD.</i></font></p>
+       {% else %}
+	<h3>Stocks: </h3> <p>No Record!</p>
+       {% endif %}
+      <div>
+        <h3>Get More Stock</h3>
+        <form class='form-search' action='/search/' method='GET'>
+          <div class='input-append'>
+            <input tpye='text' class='span2 search-query' required='required' name='stock_name' placeholder='stock symbol'/>
+            <button type='submit' onclick='submit_form();'class='btn btn-success'>Search</button>
+          </div>
+        </form>
+      </div>
+     </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class='clo-sm-6' style="overflow-y:auto;overflow-x:auto; width:400px; height:300px background-color:lightblue;">
+     <h3>Stock Symbols Dict</h3> 
+     <p><i>CDRB=Code Rebel Corporation
+        FCLF=First Clover Leaf Financial Corp.
+        DISCB=Discovery Communications, Inc.
+        BBBY=Bed Bath & Beyond Inc.
+        FORTY=Formula Systems (1985) Ltd.
+        SEDG=SolarEdge Technologies, Inc.
+        CASS=Cass Information Systems, Inc 
+        ODFL=Old Dominion Freight Line, Inc.
+        CHCI=Comstock Holding Companies, Inc.
+        ZIOP=ZIOPHARM Oncology Inc 
+        SIBC=State Investors Bancorp, Inc.
+        CSFL=CenterState Banks, Inc.
+        TUTI=Tuttle Tactical Management Mult
+        AGNCB=American Capital Agency Corp.
+        ICBK=County Bancorp, Inc.
+        SGC=Superior Uniform Group, Inc.
+        SPTN=SpartanNash Company
+        ABCW=Anchor BanCorp Wisconsin Inc.
+        MPET=Magellan Petroleum Corporation
+        JAGX=Jaguar Animal Health, Inc.
+        LMCK=Liberty Media Corporation
+        ABAC=Aoxin Tianli Group, Inc.
+        RUSHA=Rush Enterprises, Inc.
+        FMI=Foundation Medicine, Inc.
+        CLMS=Calamos Asset Management, Inc.
+        FNLC=First Bancorp, Inc (ME)
+        AQXP=Aquinox Pharmaceuticals, Inc.
+        PFMT=Performant Financial Corporation
+        FGM=First Trust Germany AlphaDEX Fun 
+        SEMI=SunEdison Semiconductor Limited
+        CACQ=Caesars Acquisition Company
+        WTFCM=Wintrust Financial Corporation
+        FNWB=First Northwest Bancorp
+        DAX=Recon Capital DAX Germany ET
+        FSBK=First South Bancorp Inc 
+        GUID=Guidance Software, Inc.
+        SFST=Southern First Bancshares, Inc.
+        SBLK=Star Bulk Carriers Corp.
+        ICON=Iconix Brand Group, Inc.
+        FCCO=First Community Corporation
+        AXPWW=Axion Power International, Inc.
+        UCTT=Ultra Clean Holdings, Inc.
+        PZZA=Papa John's International, Inc.
+        QPAC=Quinpario Acquisition Corp. 
+        GCBC=Greene County Bancorp, Inc.
+        TACOW=Del Taco Restaurants, Inc.
+        CDRB=Code Rebel Corporation
+        ICLD=InterCloud Systems, Inc
+        CYOU=Changyou.com Limited
+        ZYNE=Zynerba Pharmaceuticals, Inc.
+        INCY=Incyte Corporation
+      </i></p>
+   </div>
+  </div>
+</div>
+{% endblock %}
